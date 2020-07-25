@@ -62,6 +62,47 @@ call plug#end()
 
 " ----- System Config -----
 
+" Don't show the intro
+set shortmess+=I
+
+" Turn on the mouse in all modes
+set mouse=a
+
+" Give one virtual space at end of line
+set virtualedit=onemore
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" Set to auto write/save file
+set autowriteall
+
+" Tab settings
+set expandtab
+set shiftwidth=2
+set tabstop=8
+set softtabstop=2
+set smarttab
+
+" Text display settings
+set linebreak
+set textwidth=120
+set autoindent
+set nowrap
+set whichwrap+=h,l,<,>,[,]
+
+" Explicitly set encoding to utf-8
+set encoding=utf-8
+
+" Turn off sound
+set vb
+set t_vb=
+
+" Allow changing buffer without saving it first
+set hidden
+
+" Show incomplete commands
+set showcmd
 
 " Enable syntax highlighting
 syntax enable
@@ -99,8 +140,9 @@ if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')   " ESl
 endif
 autocmd CursorHold * silent call CocActionAsync('highlight')               " Highlight symbol on cursor highlight
 
-" Hide NerdTree (file explorer sidebar) on start
+" NERDTree
 let NERDTreeShowHidden=1
+let NERDTreeIgnore=['\~$', '\.swp$', '\.git', '\.cache', '\.idea'] 
 
 " Automatically show file in NERDTree
 " Check if NERDTree is open or active
@@ -121,6 +163,18 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 " Highlight currently open buffer in NERDTree
 autocmd BufRead * call SyncTree()
+
+" Cursor settings. This makes terminal vim sooo much nicer!
+" Tmux will only forward escape sequences to the terminal if surrounded by a DCS
+" sequence
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
 
 " Themes
 "colorscheme vim-material
@@ -165,6 +219,10 @@ let g:closetag_regions = {
     \ 'javascript.jsx': 'jsxRegion',
     \ }
 
+" Case insensitive search
+set ignorecase
+set smartcase
+
 
 "----- Keymaps -----
 
@@ -185,13 +243,13 @@ map <Leader>l <C-w>l
 nmap <silent> <Leader>e :NERDTreeToggle<CR>
 
 " Close pane w/o save
-map <Leader>w :bd!<Return>
+nmap <c-w> :bd!<Return>
 " Save
-map <Leader>s :w<Return>
+nmap <c-s> :w<Return>
 " Save & Quit
-map <Leader>c :wq<Return>
+nmap <c-c> :wq<Return>
 " Quit w/o save
-map <Leader>q :q!<Return>
+nmap <c-q> :q!<Return>
 
 " ESC to Clear highlight after search
 nnoremap <silent> <ESC> :noh<CR>
