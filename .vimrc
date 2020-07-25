@@ -7,9 +7,9 @@ call plug#begin()
 
 " NerdTree (File Explorer)
 Plug 'preservim/nerdtree'
-Plug 'ryanoasis/vim-devicons' " File icons
+Plug 'ryanoasis/vim-devicons'      " File icons
 
-" FZF - File search
+"FZF - File search
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
@@ -31,6 +31,11 @@ Plug 'tpope/vim-surround' 	" Quickly change <tags> -> [brackets] -> 'quotes' -> 
 " Expand selection region
 Plug 'terryma/vim-expand-region'
 
+" Allow selecting more regions
+Plug 'kana/vim-textobj-user' 	  " Required - enable custom user objects
+Plug 'kana/vim-textobj-line'      " Expand until end of line
+Plug 'kana/vim-textobj-entire'    " Expand until whoel file
+
 " Tmux focus events - required for plugins
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
@@ -47,6 +52,7 @@ Plug 'neoclide/coc.nvim' , { 'branch' : 'release'  }
 Plug 'hzchirs/vim-material'
 Plug 'arcticicestudio/nord-vim'
 Plug 'mhartington/oceanic-next'
+Plug 'joshdick/onedark.vim'
 
 " Git commands in vim
 Plug 'tpope/vim-fugitive'
@@ -96,10 +102,40 @@ autocmd CursorHold * silent call CocActionAsync('highlight')               " Hig
 " Hide NerdTree (file explorer sidebar) on start
 let NERDTreeShowHidden=1
 
+" Automatically show file in NERDTree
+" Check if NERDTree is open or active
+function! IsNERDTreeOpen()        
+  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+endfunction
+" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
+" file, and we're not in vimdiff
+function! SyncTree()
+  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+    NERDTreeFind
+    wincmd p
+  endif
+endfunction
+
+" Close NERDTree if it's the last buffer
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Highlight currently open buffer in NERDTree
+autocmd BufRead * call SyncTree()
+
 " Themes
 "colorscheme vim-material
 "colorscheme nord
 colorscheme OceanicNext
+"colorscheme onedark
+
+" Set terminal colors for theme
+if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
 if (has("termguicolors"))
   set termguicolors
 endif
@@ -149,19 +185,19 @@ map <Leader>l <C-w>l
 nmap <silent> <Leader>e :NERDTreeToggle<CR>
 
 " Close pane w/o save
-nmap <Leader>w :bd!<Return>
+map <Leader>w :bd!<Return>
 " Save
-nmap <Leader>s :w<Return>
+map <Leader>s :w<Return>
 " Save & Quit
-nmap <Leader>c :wq<Return>
+map <Leader>c :wq<Return>
 " Quit w/o save
-nmap <Leader>q :q!<Return>
+map <Leader>q :q!<Return>
 
 " ESC to Clear highlight after search
 nnoremap <silent> <ESC> :noh<CR>
 
-" Search for file
-map <Leader>p :FZF<Return>
+" Search for file - will also move away from NERDTree if we're in it
+nnoremap <silent> <expr> <Leader>p (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":FZF\<cr>"
 
 " ALT + j/k to move lines up/down
 nnoremap <A-j> :m .+1<CR>==
