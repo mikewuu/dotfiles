@@ -361,3 +361,10 @@ nmap <leader>r <Plug>(coc-rename)
 " Formatting selected code
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+
+" Copy to system clipboard
+if has ('unnamedplus')
+  set clipboard=unnamedplus
+else
+  set clipboard=unnamed
+endif
