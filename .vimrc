@@ -334,7 +334,7 @@ nnoremap th :tabprev<CR>
 " tl - next tab
 nnoremap tl :tabnext<CR>
 " tn - close tab
-nnoremap td :tabclose<CR>
+nnoremap tx :tabclose<CR>
 " tn - Open current buffer in new tab
 nnoremap tn :tab split<CR>
 
