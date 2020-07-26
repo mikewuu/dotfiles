@@ -1,5 +1,4 @@
 
-
 " ----- Plugins -----
 
 
@@ -12,6 +11,9 @@ Plug 'ryanoasis/vim-devicons'      " File icons
 "FZF - File search
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+" Use ripgrep for search
+Plug 'jremmen/vim-ripgrep'
 
 " Syntax Highlighting
 Plug 'pangloss/vim-javascript'                                         " JavaScript
@@ -41,6 +43,9 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " Select next occurrence
 Plug 'terryma/vim-multiple-cursors'
+
+" Smoother scroll
+Plug 'terryma/vim-smooth-scroll'
 
 " Lightline
 Plug 'itchyny/lightline.vim'
@@ -131,7 +136,10 @@ set updatetime=300 " Quicker autocomplete
 set autoread 
 
 " Use 'ag' for FZF (Search) to prevent searching git ignore
-let $FZF_DEFAULT_COMMAND = 'ag --hidden -g ""'
+" let $FZF_DEFAULT_COMMAND = 'ag --hidden -g ""'
+
+" Search with ripgrep
+let $FZF_DEFAULT_COMMAND = 'rg --hidden --files'
 
 " Coc Auto-complete Extensions
 let g:coc_global_extensions = [ 'coc-tsserver' ]  			  
@@ -230,20 +238,11 @@ set smartcase
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 
-" Split window
-nmap <Leader>t :vsplit<Return>
-
-" Navigate panes
-map <Leader>h <C-w>h
-map <Leader>k <C-w>k
-map <Leader>j <C-w>j
-map <Leader>l <C-w>l
-
-" Toggle file explorerr
-nmap <silent> <Leader>e :NERDTreeToggle<CR>
+" Toggle file explorer
+nmap <silent> <c-e> :NERDTreeToggle<CR>
 
 " Close pane w/o save
-nmap <c-w> :bd!<Return>
+nmap <c-b> :bd!<Return>
 " Save
 nmap <c-s> :w<Return>
 " Save & Quit
@@ -251,11 +250,16 @@ nmap <c-c> :wq<Return>
 " Quit w/o save
 nmap <c-q> :q!<Return>
 
+" Ctrl + j/k to scroll page
+nnoremap <C-j> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+nnoremap <C-k> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+
+
 " ESC to Clear highlight after search
 nnoremap <silent> <ESC> :noh<CR>
 
 " Search for file - will also move away from NERDTree if we're in it
-nnoremap <silent> <expr> <Leader>p (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":FZF\<cr>"
+nnoremap <silent> <expr> <c-p> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":FZF\<cr>"
 
 " ALT + j/k to move lines up/down
 nnoremap <A-j> :m .+1<CR>==
@@ -267,13 +271,15 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " Search for text everywhere
 " Start search
-:nmap <Leader>f :vimgrep // **/*<left><left><left><left><left><left>
+":nmap <Leader>f :vimgrep // **/*<left><left><left><left><left><left>
+" Use Ctrl + f for search using ripgrep
+nmap <c-f> :Rg<space>
 " Go to next search result
-:nmap <Leader>] :cnext <CR>
+nmap <c-down> :cnext <CR>
 " Go to prev sxtearch result
-:nmap <Leader>[ :cprevious <CR>
+nmap <c-up> :cprevious <CR>
 " Close search results windows
-:nmap <Leader>. :cclose <CR>
+nmap <c-x> :cclose <CR>
 " Ignore directories
 set wildignore=*/node_modules/*,*/.vscode,*/.git
 " Required - automatically opens the vim quickfix window
@@ -292,8 +298,8 @@ noremap <Right> <Nop>
 " Required - Fix syntax highlighting for .tsx by setting filetype
 " javascripttypescript -> typescript.tsx
 augroup SyntaxSettings
-    autocmd!
-    autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+autocmd!
+autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 augroup END
 
 " Coc Auto-complete shortcuts
@@ -322,20 +328,33 @@ function! s:show_documentation()
   endif
 endfunction
 
+" Create and navigate tabs
+" th - prev tab
+nnoremap th :tabprev<CR>
+" tl - next tab
+nnoremap tl :tabnext<CR>
+" tn - close tab
+nnoremap td :tabclose<CR>
+" tn - Open current buffer in new tab
+nnoremap tn :tab split<CR>
+
 " Coc - use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-" Required - to trigger tab completion
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
 " Rename symbol/variable
-nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>r <Plug>(coc-rename)
 
 " Formatting selected code
-xmap <leader>fo  <Plug>(coc-format-selected)
-nmap <leader>fo  <Plug>(coc-format-selected)
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
