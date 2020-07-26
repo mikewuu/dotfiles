@@ -30,6 +30,9 @@ Plug 'jiangmiao/auto-pairs' 	" Auto-close [brackets]
 Plug 'alvan/vim-closetag' 	" Auto-close <tags>
 Plug 'tpope/vim-surround' 	" Quickly change <tags> -> [brackets] -> 'quotes' -> <tags>
 
+" Quickly comment out code
+Plug 'tpope/vim-commentary'
+
 " Expand selection region
 Plug 'terryma/vim-expand-region'
 
