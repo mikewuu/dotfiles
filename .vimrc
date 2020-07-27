@@ -39,7 +39,7 @@ Plug 'terryma/vim-expand-region'
 " Allow selecting more regions
 Plug 'kana/vim-textobj-user' 	  " Required - enable custom user objects
 Plug 'kana/vim-textobj-line'      " Expand until end of line
-Plug 'kana/vim-textobj-entire'    " Expand until whoel file
+Plug 'kana/vim-textobj-entire'    " Expand until whole file
 
 " Tmux focus events - required for plugins
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -151,6 +151,7 @@ if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')   " ESl
 endif
 autocmd CursorHold * silent call CocActionAsync('highlight')               " Highlight symbol on cursor highlight
 
+
 " NERDTree
 let NERDTreeShowHidden=1
 let NERDTreeIgnore=['\~$', '\.swp$', '\.git', '\.cache', '\.idea'] 
@@ -174,6 +175,20 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 " Highlight currently open buffer in NERDTree
 autocmd BufRead * call SyncTree()
+
+function! ToggleTree()
+    if exists("g:NERDTree") && g:NERDTree.IsOpen()
+        NERDTreeClose
+    elseif filereadable(expand('%'))
+        NERDTreeFind
+    else
+        NERDTree
+    endif
+endfunction
+
+" Ctrl+E to open NERDTree 
+nmap <silent> <c-e> :call ToggleTree()<CR>
+
 
 " Cursor settings. This makes terminal vim sooo much nicer!
 " Tmux will only forward escape sequences to the terminal if surrounded by a DCS
@@ -241,8 +256,6 @@ set smartcase
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 
-" Toggle file explorer
-nmap <silent> <c-e> :NERDTreeToggle<CR>
 
 " Close pane w/o save
 nmap <c-b> :bd!<Return>
@@ -361,6 +374,12 @@ nmap <leader>r <Plug>(coc-rename)
 " Formatting selected code
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+
+" Delete without copy
+nnoremap <leader>d "_d
+xnoremap <leader>d "_d
+" Paste, and allow re-paste
+xnoremap <leader>p "_dP
 
 " Copy to system clipboard
 if has ('unnamedplus')
