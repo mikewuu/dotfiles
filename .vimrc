@@ -33,14 +33,6 @@ Plug 'tpope/vim-surround' 	" Quickly change <tags> -> [brackets] -> 'quotes' -> 
 " Quickly comment out code
 Plug 'tpope/vim-commentary'
 
-" Expand selection region
-Plug 'terryma/vim-expand-region'
-
-" Allow selecting more regions
-Plug 'kana/vim-textobj-user' 	  " Required - enable custom user objects
-Plug 'kana/vim-textobj-line'      " Expand until end of line
-Plug 'kana/vim-textobj-entire'    " Expand until whole file
-
 " Tmux focus events - required for plugins
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
@@ -387,3 +379,7 @@ if has ('unnamedplus')
 else
   set clipboard=unnamed
 endif
+
+nmap <silent> + <Plug>(coc-range-select)
+xmap <silent> + <Plug>(coc-range-select)
+
