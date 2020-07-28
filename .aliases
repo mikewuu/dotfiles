@@ -1,6 +1,9 @@
 # Neovim
 alias nv="nvim"
 
+# Tmux
+alias tx="tmux"
+
 # Git
 alias ga="git add"
 alias gaa="git add ."

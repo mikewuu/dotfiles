@@ -105,6 +105,15 @@ set t_vb=
 " Allow changing buffer without saving it first
 set hidden
 
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
 " Show incomplete commands
 set showcmd
 
@@ -249,7 +258,7 @@ set smartcase
 "----- Keymaps -----
 
 " Space for leader key
-nnoremap <SPACE> <Nop>
+nnoremap <space> <Nop>
 let mapleader=" "
 
 
@@ -365,7 +374,7 @@ endfunction
 let g:coc_snippet_next = '<tab>'
 
 " Rename symbol/variable
-nmap <leader>r <Plug>(coc-rename)
+nmap <silent> <leader>r <Plug>(coc-rename)
 
 " Formatting selected code
 xmap <leader>f  <Plug>(coc-format-selected)
@@ -389,7 +398,7 @@ nmap <silent> + <Plug>(coc-range-select)
 xmap <silent> + <Plug>(coc-range-select)
 
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <silent> <leader>qf  <Plug>(coc-fix-current)
 
 " Map function and class text objects
 xmap if <Plug>(coc-funcobj-i)
@@ -401,3 +410,11 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
+" Show all diagnostics.
+nnoremap <silent> <leader>e  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent> <leader>c  :<C-u>CocList extensions<cr>
+" Find symbol of current document.
+nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent> <leader>t  :<C-u>CocList -I symbols<cr>

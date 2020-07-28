@@ -1,7 +1,21 @@
 {
   "symbols": {
     "%2Fhome%2Fmike%2FCode%2Fcsgo-webapp": [
-      "rekjkk"
+      "rekjkk",
+      "mark",
+      "app",
+      "facet"
+    ]
+  },
+  "extensions": {
+    "%2Fhome%2Fmike%2FCode%2Fcsgo-webapp": [
+      "coc",
+      "q"
+    ]
+  },
+  "outline": {
+    "%2Fhome%2Fmike%2FCode%2Fcsgo-webapp": [
+      "facet"
     ]
   }
 }

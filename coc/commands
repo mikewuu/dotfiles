@@ -1,7 +1,7 @@
+snippets.openSnippetFiles
+snippets.editSnippets
 document.jumpToNextSymbol
 tsserver.reloadProjects
 tsserver.restart
 prettier.formatFile
-snippets.editSnippets
-snippets.openSnippetFiles
 snippets.editSnippetsCommand
