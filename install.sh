@@ -9,6 +9,7 @@ vimfiles=$dotfiles/.vim
 tmux_conf=$dotfiles/.tmux.conf
 gitignore=$dotfiles/.gitignore
 gitconfig=$dotfiles/.gitconfig
+coc=$dotfiles/coc
 
 [[ ! -e $HOME/.aliases ]] && ln -s $aliases $HOME/.aliases 
 
@@ -23,5 +24,7 @@ gitconfig=$dotfiles/.gitconfig
 [[ ! -e $HOME/.gitignore ]] && ln -s $gitignore $HOME/.gitignore 
 
 [[ ! -e $HOME/.gitconfig ]] && ln -s $gitconfig $HOME/.gitconfig 
+
+[[ ! -e $HOME/.config/coc ]] && ln -s $coc $HOME/.config/coc 
 
 echo "Done"
