@@ -4,17 +4,80 @@ alias nv="nvim"
 # Tmux
 alias tx="tmux"
 
-# Git
+# System
+alias edithost='subl /etc/hosts'
+alias editbash="sudo subl ~/.bash_profile"
+alias launchvpn="sudo openvpn --config /Users/Mike-Personal/Desktop/my_expressvpn_usa_-_los_angeles_-_1_udp.ovpn"
+alias aliasreload=". ~/.zshrc && echo 'ZSH config reloaded from ~/.zshrc'"
+
+#Homestead
+alias hup="homestead up"
+alias hdown="homestead halt"
+alias hshh="homestead ssh"
+
+#tools
+# alias phpunit="vendor/bin/phpunit"
+alias vcomposer="composer update --prefer-dist -vvv --profile"
+alias gide="php artisan clear-compiled;php artisan ide-helper:generate;php artisan ide-helper:models --write;php artisan ide-helper:meta;php artisan optimize"
+
+#github
 alias ga="git add"
 alias gaa="git add ."
 alias gc="git commit -m"
 alias gm="git commit --allow-empty -m"
 alias gp="git push"
-alias gpd="git push origin development"
+alias gpo="git push origin"
+alias gr="git rebase"
+alias gpso="git push --set-upstream origin"
 alias gs="git status"
 alias nah="git reset --hard; git clean -df;"
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gd="git diff"
-alias gb="git branch"
-alias gco="git checkout"
-alias grb="git rebase"
+alias gbt="git for-each-ref --sort=-committerdate refs/heads/ --format='%(committerdate:short) %(refname:short) by %(authorname)'"
+
+#Laravel
+alias pa="php artisan"
+alias pams="php artisan migrate:refresh --seed"
+
+#project
+alias code="cd ~/Code"
+alias shigotonow="cd ~/Code/shigotonow"
+alias allyfiles="cd ~/code/ally-files"
+alias refilliate="cd ~/Code/refilliate"
+alias sshally="ssh forge@128.199.219.174"
+alias sshrefilliate="ssh forge@188.166.220.58"
+alias sshsaber="ssh forge@128.199.191.12"
+alias sshfc="ssh forge@138.68.53.231"
+alias sshdr="ssh forge@162.243.155.41"
+alias sshddocs-app="ssh forge@198.199.92.76"
+alias sshbm="ssh forge@128.199.141.248"
+
+#start dev scripts
+alias workdd="~/Code/starters/ddocs-app.sh"
+alias workbm="~/Code/starters/bemail.sh"
+
+#deploy shortcut for forge apps
+alias deploy="./deploy.sh"
+
+#Mike
+alias mdl="node ~/Code/music-downloader"
+alias mkvtomp4="for f in *.mkv;do ffmpeg -i "$f" -c:v copy -c:a aac -b:a 256k -strict -2 "${f%mkv}mp4";done"
+alias webmtomp4='for f in *.webm;do ffmpeg -i "$f" "${f%webm}mp4";done'
+alias freelancer="~/Freelancer"
+
+# Load xdebug Zend extension with php command
+# alias php='php -dzend_extension=xdebug.so'
+# PHPUnit needs xdebug for coverage. In this case, just make an alias with php command prefix.
+#alias phpunit='php $(which phpunit)'
+
+#Mosh
+alias moshsail9="mosh server@sail9.ddns.net --ssh='ssh -p 41522'"
+alias moshosaraki='mosh mike@osaraki.ddns.net --ssh="ssh -p 6116"'
+alias moshbm="mosh forge@bemail.io"
+
+#Java
+alias killjava="kill -9 $(ps ax | grep "[j]ava" | awk '{print $1}')"
+
+#Postgresql
+alias pg_start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
+alias pg_stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
