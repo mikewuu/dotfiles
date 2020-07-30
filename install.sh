@@ -10,6 +10,7 @@ tmux_conf=$dotfiles/.tmux.conf
 gitignore=$dotfiles/.gitignore
 gitconfig=$dotfiles/.gitconfig
 coc=$dotfiles/coc
+neovim_init=$dotfiles/init.vim
 
 [[ ! -e $HOME/.aliases ]] && ln -s $aliases $HOME/.aliases 
 
@@ -26,5 +27,9 @@ coc=$dotfiles/coc
 [[ ! -e $HOME/.gitconfig ]] && ln -s $gitconfig $HOME/.gitconfig 
 
 [[ ! -e $HOME/.config/coc ]] && ln -s $coc $HOME/.config/coc 
+
+[[ ! -e $HOME/.config/nvim ]] && mkdir $HOME/.config/nvim
+
+[[ ! -e $HOME/.config/nvim/init.vim ]] && ln -s $neovim_init $HOME/.config/nvim/init.vim
 
 echo "Done"
