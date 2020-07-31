@@ -267,7 +267,7 @@ nmap <c-b> :bd!<Return>
 " Save
 nmap <c-s> :w<Return>
 " Save & Quit
-nmap <c-c> :wq<Return>
+nmap <leader>s :wq<Return>
 " Quit w/o save
 nmap <c-q> :q!<Return>
 
@@ -289,6 +289,15 @@ inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
+" For mac we have to use the alt symbols for each key
+" alt + j = ∆
+" alt + k = ˚
+nnoremap ∆ :m .+1<CR>==
+nnoremap ˚ :m .-2<CR>==
+inoremap ∆ <Esc>:m .+1<CR>==gi
+inoremap ˚ <Esc>:m .-2<CR>==gi
+vnoremap ∆ :m '>+1<CR>gv=gv
+vnoremap ˚ :m '<-2<CR>gv=gv
 
 " Search for text everywhere
 " Start search
@@ -296,11 +305,11 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 " Use Ctrl + f for search using ripgrep
 nmap <c-f> :Rg<space>
 " Go to next search result
-nmap <c-down> :cnext <CR>
+nmap ]q :cnext <CR>
 " Go to prev sxtearch result
-nmap <c-up> :cprevious <CR>
+nmap [q :cprevious <CR>
 " Close search results windows
-nmap <c-x> :cclose <CR>
+nmap <leader>q :cclose <CR>
 " Ignore directories
 set wildignore=*/node_modules/*,*/.vscode,*/.git
 " Required - automatically opens the vim quickfix window

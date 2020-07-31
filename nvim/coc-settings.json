@@ -1,0 +1,7 @@
+{
+	"eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+	"snippets.priority": 100,
+	"typescript.suggest.completeFunctionCalls": false,
+	"typescript.preferences.importModuleSpecifier": "non-relative",
+	"javascript.preferences.importModuleSpecifier": "non-relative"
+}

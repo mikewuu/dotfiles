@@ -8,6 +8,7 @@
     "coc-snippets": ">=2.1.28",
     "coc-styled-components": ">=0.3.0",
     "coc-tsserver": ">=1.5.3",
+    "coc-vetur": ">=1.1.11",
     "coc-yaml": ">=1.0.4"
   }
 }

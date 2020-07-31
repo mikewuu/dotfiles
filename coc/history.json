@@ -16,6 +16,14 @@
   "outline": {
     "%2Fhome%2Fmike%2FCode%2Fcsgo-webapp": [
       "facet"
+    ],
+    "%2FUsers%2Fmike%2FFreelancer%2Fpureskill-gg%2Fcsgo-webapp": [
+      "faceint"
+    ]
+  },
+  "diagnostics": {
+    "%2FUsers%2Fmike%2FFreelancer%2Fpureskill-gg%2Fcsgo-webapp": [
+      "facet"
     ]
   }
 }
