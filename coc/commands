@@ -1,7 +1,13 @@
-snippets.openSnippetFiles
 snippets.editSnippets
+prettier.open-output
+workspace.showOutput
+eslint.createConfig
+workspace.diagnosticRelated
+eslint.executeAutofix
+prettier.formatFile
+intelephense.index.workspace
+snippets.openSnippetFiles
 document.jumpToNextSymbol
 tsserver.reloadProjects
 tsserver.restart
-prettier.formatFile
 snippets.editSnippetsCommand

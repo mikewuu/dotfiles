@@ -17,10 +17,11 @@ Plug 'jremmen/vim-ripgrep'
 
 " Syntax Highlighting
 Plug 'pangloss/vim-javascript'                                         " JavaScript
-Plug 'leafgarland/typescript-vim'                                      " TypeScript
+"Plug 'leafgarland/typescript-vim'                                      " TypeScript
 Plug 'maxmellon/vim-jsx-pretty'                                        " JSX/TSX
 Plug 'jparise/vim-graphql'                                             " GraphQL
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }   " Styled Components
+Plug 'posva/vim-vue'                                                   " Vue
 
 " Editor Config
 Plug 'editorconfig/editorconfig-vim'
@@ -57,6 +58,12 @@ Plug 'joshdick/onedark.vim'
 " Git commands in vim
 Plug 'tpope/vim-fugitive'
 
+" Indent JS/TS files properly
+Plug 'jason0x43/vim-js-indent'
+
+" Navigate vim, and tmux panes together
+Plug 'christoomey/vim-tmux-navigator'
+
 call plug#end() 
 
 
@@ -75,9 +82,6 @@ set mouse=a
 " Give one virtual space at end of line
 set virtualedit=onemore
 
-" Set to auto read when a file is changed from the outside
-set autoread
-
 " Set to auto write/save file
 set autowriteall
 
@@ -90,9 +94,8 @@ set smarttab
 
 " Text display settings
 set linebreak
-set textwidth=120
+set textwidth=80
 set autoindent
-set nowrap
 set whichwrap+=h,l,<,>,[,]
 
 " Explicitly set encoding to utf-8
@@ -149,8 +152,8 @@ set autoread
 " Search with ripgrep
 let $FZF_DEFAULT_COMMAND = 'rg --hidden --files'
 
-" Coc Auto-complete Extensions
-let g:coc_global_extensions = [ 'coc-tsserver' ]  			  
+" Coc automatically install these extensions
+let g:coc_global_extensions = [ 'coc-tsserver', 'coc-snippets', 'coc-prettier', 'coc-eslint', 'coc-yaml', 'coc-vetur', 'coc-styled-components', 'coc-phpls', 'coc-markdownlint', 'coc-json', 'coc-css' ]  			  
 if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')   " ESlint (if in node_modules)
   let g:coc_global_extensions += ['coc-eslint']
 endif
@@ -254,8 +257,7 @@ let g:closetag_regions = {
 set ignorecase
 set smartcase
 
-
-"----- Keymaps -----
+" ----- Keymaps -----
 
 " Space for leader key
 nnoremap <space> <Nop>
@@ -266,14 +268,15 @@ let mapleader=" "
 nmap <c-b> :bd!<Return>
 " Save
 nmap <c-s> :w<Return>
+inoremap <c-s> <ESC>:w<Return>
 " Save & Quit
 nmap <leader>s :wq<Return>
 " Quit w/o save
 nmap <c-q> :q!<Return>
 
-" Ctrl + j/k to scroll page
-nnoremap <C-j> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-nnoremap <C-k> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+" Ctrl + d/u to scroll page
+nnoremap <C-d> :call smooth_scroll#down(&scroll, 4, 1)<CR>
+nnoremap <C-u> :call smooth_scroll#up(&scroll, 4, 1)<CR>
 
 
 " ESC to Clear highlight after search
@@ -389,6 +392,12 @@ nmap <silent> <leader>r <Plug>(coc-rename)
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
 " Delete without copy
 nnoremap <leader>d "_d
 xnoremap <leader>d "_d
@@ -427,3 +436,12 @@ nnoremap <silent> <leader>c  :<C-u>CocList extensions<cr>
 nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
 " Search workspace symbols.
 nnoremap <silent> <leader>t  :<C-u>CocList -I symbols<cr>
+
+" Text padding
+set scrolloff=5
+
+" Use vim-js-indent instead of leafgarland/typescript indenting
+let g:typescript_indent_disable = 1
+
+" Enable blinking cursor
+set guicursor+=a:-blinkwait175-blinkoff150-blinkon175

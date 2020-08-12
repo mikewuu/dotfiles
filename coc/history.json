@@ -11,6 +11,9 @@
     "%2Fhome%2Fmike%2FCode%2Fcsgo-webapp": [
       "coc",
       "q"
+    ],
+    "%2FUsers%2Fmike%2FFreelancer%2FSwiftMQ%2Fserver%2Fcloud-frontend": [
+      "v:"
     ]
   },
   "outline": {
@@ -24,6 +27,11 @@
   "diagnostics": {
     "%2FUsers%2Fmike%2FFreelancer%2Fpureskill-gg%2Fcsgo-webapp": [
       "facet"
+    ]
+  },
+  "commands": {
+    "%2FUsers%2Fmike%2FFreelancer%2FSwiftMQ%2Fserver%2Fcloud-frontend": [
+      "work"
     ]
   }
 }
