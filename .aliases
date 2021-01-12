@@ -63,7 +63,7 @@ alias deploy="./deploy.sh"
 alias mdl="node ~/Code/music-downloader"
 alias mkvtomp4="for f in *.mkv;do ffmpeg -i "$f" -c:v copy -c:a aac -b:a 256k -strict -2 "${f%mkv}mp4";done"
 alias webmtomp4='for f in *.webm;do ffmpeg -i "$f" "${f%webm}mp4";done'
-alias freelancer="~/Freelancer"
+alias freelance="~/Freelance"
 
 # Load xdebug Zend extension with php command
 # alias php='php -dzend_extension=xdebug.so'

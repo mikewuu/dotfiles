@@ -98,6 +98,9 @@ set textwidth=80
 set autoindent
 set whichwrap+=h,l,<,>,[,]
 
+" Give line breaks the same indentation
+set breakindent
+
 " Explicitly set encoding to utf-8
 set encoding=utf-8
 
@@ -162,7 +165,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')               " Hig
 
 " NERDTree
 let NERDTreeShowHidden=1
-let NERDTreeIgnore=['\~$', '\.swp$', '\.git', '\.cache', '\.idea'] 
+let NERDTreeIgnore=['\~$', '\.swp$', '\.git', '\.cache', '\.idea', '.DS_Store'] 
 
 " Automatically show file in NERDTree
 " Check if NERDTree is open or active
