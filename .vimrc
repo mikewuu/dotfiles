@@ -53,7 +53,6 @@ Plug 'neoclide/coc.nvim' , { 'branch' : 'release'  }
 Plug 'hzchirs/vim-material'
 Plug 'arcticicestudio/nord-vim'
 Plug 'mhartington/oceanic-next'
-Plug 'joshdick/onedark.vim'
 
 " Git commands in vim
 Plug 'tpope/vim-fugitive'

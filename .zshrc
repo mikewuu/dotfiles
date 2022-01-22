@@ -2,12 +2,10 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Brew paths
-export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
+export PATH="$HOME/bin:/usr/local/bin:$PATH:$HOME/Libary/Python/3.9/bin"
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/mike/.oh-my-zsh"
+export ZSH="/Users/mike/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -73,7 +71,7 @@ ZSH_THEME="odin"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions osx sudo nvm)
+plugins=(git zsh-autosuggestions macos sudo nvm)
 
 source $ZSH/oh-my-zsh.sh
 

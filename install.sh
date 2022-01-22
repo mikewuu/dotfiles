@@ -1,6 +1,6 @@
 #! /bin/bash
 
-dotfiles=$HOME/.dotfiles
+dotfiles=$HOME/dotfiles
 
 zshrc=$dotfiles/.zshrc
 aliases=$dotfiles/.aliases
@@ -11,6 +11,7 @@ gitignore=$dotfiles/.gitignore
 gitconfig=$dotfiles/.gitconfig
 coc=$dotfiles/coc
 neovim_config=$dotfiles/nvim
+
 
 [[ ! -e $HOME/.aliases ]] && ln -s $aliases $HOME/.aliases 
 

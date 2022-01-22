@@ -1,0 +1,2 @@
+reset|reset_color|around
+git_|git_prompt_status|around

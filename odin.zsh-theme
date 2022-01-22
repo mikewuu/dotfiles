@@ -1,6 +1,5 @@
+# PROMPT=' $(_user_host)%{$fg[magenta]%}%c $(git_prompt_status)%{$reset_color%}→ '
 # The prompt #
-# Original
-#PROMPT=' $(_user_host)%{$fg[magenta]%}%c $(git_prompt_status)%{$reset_color%}→ '
 
 PROMPT='%{$fg[magenta]%}%2~ $(git_prompt_status)%{$reset_color%}→ '
 

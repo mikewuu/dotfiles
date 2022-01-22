@@ -12,12 +12,28 @@ and have tried to replicate all the modern features I couldn't dev without.
 
 ## Install
 
+> Must install oh-my-zsh before running `./install.sh`
+
 You'll need to install the apps yourself. Then run simply run `install.sh`
 to copy the configs over.
 
 > Remember to run :PlugInstall in vim afterwards to install plugins
 
 ## Other Requirements
+
+## Installing oh-my-zsh odin
+
+[https://github.com/tylerreckart/odin](Odin Theme)
+
+```bash
+cd odin && make
+```
+
+### Copy over custom theme
+
+```bash
+cp odin.zsh-theme  ~/.oh-my-zsh/themes/odin.zsh-theme
+```
 
 ### Font
 
