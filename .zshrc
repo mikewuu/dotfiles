@@ -101,3 +101,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 . ~/.aliases
+
+# obv.io SSH
+obvio() {
+  ssh -i "~/.ssh/obvio-v4.pem" ec2-user@"$1"
+}

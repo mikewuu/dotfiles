@@ -2,4 +2,4 @@
 	name = Mike Wu
 	email = hello@mikewu.dev
 [core]
-	excludesfile = /home/mike/.gitignore
+	excludesfile = /Users/mike/.gitignore

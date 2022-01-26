@@ -1,2 +1,5 @@
+obvio-|obvio-v4.pem|file
+obvio_eve|obvio_event_api|around
+automa|automatically|around
 reset|reset_color|around
 git_|git_prompt_status|around
