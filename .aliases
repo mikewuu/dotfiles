@@ -81,3 +81,6 @@ alias killjava="kill -9 $(ps ax | grep "[j]ava" | awk '{print $1}')"
 #Postgresql
 alias pg_start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
 alias pg_stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
+
+#iCloud
+alias icloud="cd '/Users/mike/Library/Mobile Documents/com~apple~CloudDocs/iCloud (Mike)'"
