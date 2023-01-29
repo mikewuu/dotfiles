@@ -1,3 +1,5 @@
+send|sendKeys|tsserver-javascript
+ultisn|ultisnips|around
 node_di|node_directory|around
 node_|node_file|around
 ans|ansible_env|around

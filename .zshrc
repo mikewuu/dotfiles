@@ -1,8 +1,12 @@
+# Locales
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+#
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Brew paths
-export PATH="$HOME/bin:/usr/local/bin:$PATH:$HOME/Libary/Python/3.9/bin:$HOME/.composer/vendor/bin"
+export PATH="$HOME/bin:/usr/local/bin:$PATH:$HOME/Libary/Python/3.9/bin:$HOME/.composer/vendor/bin:/opt/homebrew/opt/openjdk/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/mike/.oh-my-zsh"
@@ -106,3 +110,15 @@ source $ZSH/oh-my-zsh.sh
 obvio() {
   ssh -i "~/.ssh/obvio-v4.pem" ec2-user@"$1"
 }
+
+# Ruby - allow changing ruby versions
+source $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh # Or run `brew info chruby` to find out installed directory
+chruby 3.1.2 # Set ruby version
+
+# Android - append paths so CLI commands work
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+export PATH=$ANDROID_HOME/tools:$PATH
+export JAVA_HOME=/opt/homebrew/Cellar/openjdk@11/11.0.16.1_1/libexec/openjdk.jdk/Contents/Home
+export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
