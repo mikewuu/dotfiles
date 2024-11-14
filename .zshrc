@@ -111,9 +111,6 @@ obvio() {
   ssh -i "~/.ssh/obvio-v4.pem" ec2-user@"$1"
 }
 
-# Ruby - allow changing ruby versions
-source $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh # Or run `brew info chruby` to find out installed directory
-chruby 3.1.2 # Set ruby version
 
 # Android - append paths so CLI commands work
 export JAVA_HOME=/opt/homebrew/opt/openjdk@17
