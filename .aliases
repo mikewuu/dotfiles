@@ -37,7 +37,7 @@ alias gbt="git for-each-ref --sort=-committerdate refs/heads/ --format='%(commit
 
 #Laravel
 alias pa="php artisan"
-alias pams="php artisan migrate:refresh --seed"
+alias pams="php artisan migrate:fresh --seed"
 
 #project
 alias code="cd ~/Code"
