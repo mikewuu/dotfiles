@@ -12,5 +12,6 @@ config.window_decorations = "RESIZE"
 -- config.macos_window_background_blur = 10
 
 config.color_scheme = "Catppuccin Frappe"
+config.enable_tab_bar = false
 
 return config
