@@ -2,3 +2,4 @@
 .vim/
 **/.DS_Store
 .idea
+.env
