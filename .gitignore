@@ -3,3 +3,11 @@
 **/.DS_Store
 .idea
 .env
+
+nvim/tags
+nvim/test.sh
+nvim/.luarc.json
+nvim/nvim
+nvim/spell/
+nvim/lazy-lock.json
+

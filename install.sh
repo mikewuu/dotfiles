@@ -18,10 +18,6 @@ wezterm_conf=$dotfiles/.wezterm.lua
 
 [[ ! -e $HOME/.zshrc ]] && ln -s $zshrc $HOME/.zshrc 
 
-[[ ! -e $HOME/.vimrc ]] && ln -s $vimrc $HOME/.vimrc 
-
-[[ ! -e $HOME/.vim ]] && ln -s $vimfiles $HOME/.vim 
-
 [[ ! -e $HOME/.tmux.conf ]] && ln -s $tmux_conf $HOME/.tmux.conf 
 
 [[ ! -e $HOME/.wezterm.lua ]] && ln -s $wezterm_conf $HOME/.wezterm.lua
