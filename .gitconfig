@@ -4,6 +4,7 @@
 [core]
 	excludesfile = /Users/mike/.gitignore
         editor = nvim
+	whitespace = cr-at-eol
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f

@@ -4,6 +4,9 @@ alias nv="nvim"
 # Tmux
 alias tx="tmux"
 
+# ---- Eza (better ls) -----
+alias ls="eza --icons=always"
+
 # System
 alias edithost='subl /etc/hosts'
 alias editbash="sudo subl ~/.bash_profile"
