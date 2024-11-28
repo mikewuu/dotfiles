@@ -190,6 +190,9 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Split window vertically with Ctrl-t
+vim.keymap.set('n', '<C-t>', '<cmd>vsplit<CR>', { desc = 'Split window vertically' })
+
 -- Editor keymaps
 -- save file
 vim.keymap.set('n', '<C-s>', '<cmd> w <CR>', { noremap = true, silent = true })
@@ -394,13 +397,17 @@ require('lazy').setup({
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
-        --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
-        pickers = {},
+        defaults = {
+          file_ignore_patterns = {
+            'node_modules',
+            '.git',
+          },
+        },
+        pickers = {
+          find_files = {
+            hidden = true, -- Show hidden (dot) files
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),

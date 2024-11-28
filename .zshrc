@@ -6,7 +6,7 @@ export LANG=en_US.UTF-8
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Brew paths
-export PATH="$HOME/bin:/usr/local/bin:$PATH:$HOME/Libary/Python/3.9/bin:$HOME/.composer/vendor/bin:/opt/homebrew/opt/openjdk/bin:$HOME/go/bin:$PATH"
+export PATH="$HOME/bin:/usr/local/bin:$PATH:$HOME/Libary/Python/3.9/bin:$HOME/.composer/vendor/bin:/opt/homebrew/opt/openjdk/bin:$HOME/go/bin:$PATH:vendor/bin"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/mike/.oh-my-zsh"
