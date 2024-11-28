@@ -781,19 +781,7 @@ require('lazy').setup({
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
-      local neocodeium = require 'neocodeium'
       luasnip.config.setup {}
-
-      cmp.event:on('menu_opened', function()
-        neocodeium.clear()
-      end)
-
-      -- clear neocodeium suggestions on auto-complete pop-up
-      neocodeium.setup {
-        filter = function()
-          return not cmp.visible()
-        end,
-      }
 
       cmp.setup {
         snippet = {
@@ -919,14 +907,34 @@ require('lazy').setup({
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
-  -- neocodeium AI auto-complete
+  -- Codeium AI auto-complete
   {
-    'monkoose/neocodeium',
-    event = 'VeryLazy',
+    'Exafunction/codeium.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'hrsh7th/nvim-cmp',
+    },
     config = function()
-      local neocodeium = require 'neocodeium'
-      neocodeium.setup()
-      vim.keymap.set('i', '<tab>', neocodeium.accept)
+      require('codeium').setup {
+        enable_cmp_source = false,
+        virtual_text = {
+          enabled = true,
+          key_bindings = {
+            -- Accept the current completion.
+            accept = '<Tab>',
+            -- Accept the next word.
+            accept_word = false,
+            -- Accept the next line.
+            accept_line = false,
+            -- Clear the virtual text.
+            clear = false,
+            -- Cycle to the next completion.
+            next = '<C-n>',
+            -- Cycle to the previous completion.
+            prev = '<C-p>',
+          },
+        },
+      }
     end,
   },
 
