@@ -470,6 +470,12 @@ require('lazy').setup({
       },
     },
   },
+  -- Faster typescript LSP implementing native lua because ts_ls is too slow
+  {
+    'pmizio/typescript-tools.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+    opts = {},
+  },
   { 'Bilal2453/luvit-meta', lazy = true },
   {
     -- Main LSP Configuration
@@ -644,7 +650,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        ts_ls = {},
+        -- ts_ls = {},
         --
 
         lua_ls = {
@@ -694,6 +700,12 @@ require('lazy').setup({
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
           end,
+        },
+      }
+
+      require('typescript-tools').setup {
+        settings = {
+          tsserver_path = '/opt/homebrew/lib/node_modules/typescript/bin/tsserver',
         },
       }
     end,
