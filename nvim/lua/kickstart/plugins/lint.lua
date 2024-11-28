@@ -5,12 +5,13 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       local lint = require 'lint'
-      lint.linters_by_ft = {
-        markdown = { 'markdownlint' },
-        javascript = { 'eslint' },
-        typescript = { 'eslint_d' },
-        typescriptreact = { 'eslint_d' },
-      }
+      local linters_by_ft = lint.linters_by_ft
+
+      linters_by_ft['javascript'] = { 'eslint_d' }
+      linters_by_ft['typescript'] = { 'eslint_d' }
+      linters_by_ft['typescriptreact'] = { 'eslint_d' }
+      linters_by_ft['markdown'] = nil
+      linters_by_ft['terraform'] = nil
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
       -- instead set linters_by_ft like this:
@@ -54,7 +55,10 @@ return {
           -- avoid superfluous noise, notably within the handy LSP pop-ups that
           -- describe the hovered symbol using Markdown.
           if vim.opt_local.modifiable:get() then
-            lint.try_lint()
+            lint.try_lint(nil, {
+              -- Ignore errors such as missing eslint configs
+              ignore_errors = true,
+            })
           end
         end,
       })

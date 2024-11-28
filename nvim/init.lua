@@ -678,6 +678,9 @@ require('lazy').setup({
         'prettierd',
         'stylua', -- Used to format Lua code
         'eslint_d',
+        'markdownlint',
+        'tflint',
+        'vale',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -734,7 +737,7 @@ require('lazy').setup({
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'prettier', 'prettierd', stop_after_first = true },
+        javascript = { { 'prettierd', 'prettier' } },
         typescript = { { 'prettierd', 'prettier' } },
         typescriptreact = { { 'prettierd', 'prettier' } },
       },
