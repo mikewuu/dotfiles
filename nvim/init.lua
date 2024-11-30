@@ -1035,6 +1035,13 @@ require('lazy').setup({
         },
       },
     },
+    -- Treesitter context to show the current context, e.g. the current function
+    -- that the cursor is currently in.
+    -- https://github.com/nvim-treesitter/nvim-treesitter-context
+    {
+      'nvim-treesitter/nvim-treesitter-context',
+      opts = { mode = 'cursor' },
+    },
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --
@@ -1058,7 +1065,7 @@ require('lazy').setup({
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   -- require 'plugins.bufferline',
-  -- require 'plugins.alpha',
+  require 'plugins.starter',
   require 'plugins.avante',
   require 'plugins.folding',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
