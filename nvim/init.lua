@@ -1073,6 +1073,7 @@ require('lazy').setup({
   require 'plugins.avante',
   require 'plugins.folding',
   require 'plugins.context',
+  require 'plugins.undo-highlight',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
