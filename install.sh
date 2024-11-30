@@ -28,4 +28,6 @@ wezterm_conf=$dotfiles/.wezterm.lua
 
 [[ ! -e $HOME/.config/nvim ]] && ln -s $neovim_config $HOME/.config/nvim
 
+ln -s /Users/mike/dotfiles/tmux-themes/catppuccin /Users/mike/.config/tmux/plugins
+
 echo "Done"
