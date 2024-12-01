@@ -110,14 +110,6 @@ vim.opt.mouse = 'a'
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
--- Sync clipboard between OS and Neovim.
---  Schedule the setting after `UiEnter` because it can increase startup-time.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
-end)
-
 -- Enable break indent
 vim.opt.breakindent = true
 
@@ -200,10 +192,11 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<C-t>', '<cmd>vsplit<CR>', { desc = 'Split window vertically' })
 
 -- Editor keymaps
--- save file
-vim.keymap.set('n', '<C-s>', '<cmd> w <CR>', { noremap = true, silent = true })
--- quit file
-vim.keymap.set('n', '<C-q>', '<cmd> q <CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-s>', '<cmd> w <CR>', { noremap = true, silent = true, desc = 'Save file' })
+vim.keymap.set('n', '<C-q>', '<cmd> q <CR>', { noremap = true, silent = true, desc = 'Quit buffer' })
+vim.keymap.set('v', '<leader>y', '"+y', { noremap = true, silent = true, desc = 'Copy to system clipboard' })
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true, silent = true, desc = 'Move line down' })
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { noremap = true, silent = true, desc = 'Move line up' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -275,6 +268,46 @@ require('lazy').setup({
     'aserowy/tmux.nvim',
     config = function()
       require('tmux').setup {
+        copy_sync = {
+          -- enables copy sync. by default, all registers are synchronized.
+          -- to control which registers are synced, see the `sync_*` options.
+          enable = true,
+
+          -- ignore specific tmux buffers e.g. buffer0 = true to ignore the
+          -- first buffer or named_buffer_name = true to ignore a named tmux
+          -- buffer with name named_buffer_name :)
+          ignore_buffers = { empty = false },
+
+          -- TMUX >= 3.2: all yanks (and deletes) will get redirected to system
+          -- clipboard by tmux
+          redirect_to_clipboard = false,
+
+          -- offset controls where register sync starts
+          -- e.g. offset 2 lets registers 0 and 1 untouched
+          register_offset = 0,
+
+          -- overwrites vim.g.clipboard to redirect * and + to the system
+          -- clipboard using tmux. If you sync your system clipboard without tmux,
+          -- disable this option!
+          sync_clipboard = true,
+
+          -- synchronizes registers *, +, unnamed, and 0 till 9 with tmux buffers.
+          sync_registers = false,
+
+          -- synchronizes registers when pressing p and P.
+          sync_registers_keymap_put = true,
+
+          -- synchronizes registers when pressing (C-r) and ".
+          sync_registers_keymap_reg = true,
+
+          -- syncs deletes with tmux clipboard as well, it is adviced to
+          -- do so. Nvim does not allow syncing registers 0 and 1 without
+          -- overwriting the unnamed register. Thus, ddp would not be possible.
+          sync_deletes = true,
+
+          -- syncs the unnamed register with the first buffer entry from tmux.
+          sync_unnamed = true,
+        },
         navigation = {
           -- cycles to opposite pane while navigating into the border
           cycle_navigation = true,
@@ -284,6 +317,16 @@ require('lazy').setup({
 
           -- prevents unzoom tmux when navigating beyond vim border
           persist_zoom = true,
+        },
+        resize = {
+          -- enables default keybindings (A-hjkl) for normal mode
+          enable_default_keybindings = true,
+
+          -- sets resize steps for x axis
+          resize_step_x = 1,
+
+          -- sets resize steps for y axis
+          resize_step_y = 1,
         },
       }
     end,
@@ -487,12 +530,6 @@ require('lazy').setup({
       },
     },
   },
-  -- Faster typescript LSP implementing native lua because ts_ls is too slow
-  {
-    'pmizio/typescript-tools.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-    opts = {},
-  },
   { 'Bilal2453/luvit-meta', lazy = true },
   {
     -- Main LSP Configuration
@@ -674,6 +711,18 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
+        vtsls = {
+          typescript = {
+            tsserver = {
+              maxTsServerMemory = 8192,
+            },
+          },
+          experimental = {
+            completion = {
+              enableServerSideFuzzyMatch = true,
+            },
+          },
+        },
         --
 
         lua_ls = {
@@ -723,12 +772,6 @@ require('lazy').setup({
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
           end,
-        },
-      }
-
-      require('typescript-tools').setup {
-        settings = {
-          tsserver_path = '/opt/homebrew/lib/node_modules/typescript/bin/tsserver',
         },
       }
     end,
