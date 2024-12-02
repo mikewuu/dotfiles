@@ -896,26 +896,30 @@ require('lazy').setup({
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
 
-          -- Accept ([y]es) the completion.
-          --  This will auto-import if your LSP supports it.
-          --  This will expand snippets if the LSP sent a snippet.
-          ['<Tab>'] = function(fallback)
-            if cmp.visible() then
-              cmp.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true }
-            else
-              fallback()
-            end
-          end,
-
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
           --['<CR>'] = cmp.mapping.confirm { select = true },
           --['<Tab>'] = cmp.mapping.select_next_item(),
           --['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
-          -- Accept ([y]es) the completion.
+          -- [< ] Accept the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet
+          ['<Tab>'] = cmp.mapping(function(fallback)
+            local codeium_virtual_text = require 'codeium.virtual_text'
+            local codeium_status = codeium_virtual_text.status()
+            local has_codeium_completions = codeium_status.state == 'completions' and codeium_status.total > 0
+
+            if cmp:visible() then
+              cmp.confirm {
+                select = true, -- Automatically select the first if one is not selected
+              }
+            elseif has_codeium_completions then
+              fallback()
+            else
+              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, false, true), 'nt', false)
+            end
+          end, { 'i', 's' }),
           ['<CR>'] = cmp.mapping.confirm { select = true },
 
           -- Think of <c-l> as moving to the right of your snippet expansion.
