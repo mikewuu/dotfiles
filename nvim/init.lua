@@ -126,6 +126,9 @@ vim.opt.signcolumn = 'yes'
 -- Decrease update time
 vim.opt.updatetime = 250
 
+-- Max items to show in the popup menu, eg. for completion
+vim.opt.pumheight = 10
+
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
 vim.opt.timeoutlen = 300
@@ -621,7 +624,7 @@ require('lazy').setup({
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
+          map('<C-i>', vim.lsp.buf.code_action, '[C]ode Act[I]on', { 'n', 'x' })
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -720,6 +723,13 @@ require('lazy').setup({
           experimental = {
             completion = {
               enableServerSideFuzzyMatch = true,
+            },
+          },
+          settings = {
+            typescript = {
+              preferences = {
+                importModuleSpecifier = 'non-relative',
+              },
             },
           },
         },
@@ -870,7 +880,7 @@ require('lazy').setup({
             luasnip.lsp_expand(args.body)
           end,
         },
-        completion = { completeopt = 'menu,menuone,noinsert', autocomplete = false },
+        completion = { completeopt = 'menu,menuone,noinsert' },
 
         -- For an understanding of why these mappings were
         -- chosen, you will need to read `:help ins-completion`
@@ -889,18 +899,19 @@ require('lazy').setup({
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
+          ['<Tab>'] = function(fallback)
+            if cmp.visible() then
+              cmp.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true }
+            else
+              fallback()
+            end
+          end,
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
           --['<CR>'] = cmp.mapping.confirm { select = true },
           --['<Tab>'] = cmp.mapping.select_next_item(),
           --['<S-Tab>'] = cmp.mapping.select_prev_item(),
-
-          -- Manually trigger a completion from nvim-cmp.
-          --  Generally you don't need this, because nvim-cmp will display
-          --  completions whenever it has completion options available.
-          ['<C-a>'] = cmp.mapping.complete {},
 
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
@@ -1008,9 +1019,10 @@ require('lazy').setup({
         enable_cmp_source = false,
         virtual_text = {
           enabled = true,
+          manual = true,
           key_bindings = {
             -- Accept the current completion.
-            accept = '<C-y>',
+            accept = '<tab>',
             -- Accept the next word.
             accept_word = false,
             -- Accept the next line.
@@ -1024,6 +1036,11 @@ require('lazy').setup({
           },
         },
       }
+
+      -- Show codeium suggestions on CTRL+a
+      vim.keymap.set('i', '<C-a>', function()
+        require('codeium.virtual_text').complete()
+      end)
     end,
   },
 
