@@ -769,6 +769,7 @@ require('lazy').setup({
         'markdownlint',
         'tflint',
         'vale',
+        'php-cs-fixer',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -828,6 +829,7 @@ require('lazy').setup({
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         typescript = { 'prettierd', 'prettier', stop_after_first = true },
         typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        php = { 'php_cs_fixer' },
       },
     },
   },
