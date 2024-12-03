@@ -780,6 +780,7 @@ require('lazy').setup({
         'tflint',
         'vale',
         'php-cs-fixer',
+        'pint',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -839,7 +840,7 @@ require('lazy').setup({
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         typescript = { 'prettierd', 'prettier', stop_after_first = true },
         typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
-        php = { 'php_cs_fixer' },
+        php = { 'pint', 'php_cs_fixer', stop_after_first = true },
       },
     },
   },
@@ -922,13 +923,17 @@ require('lazy').setup({
             local codeium_status = codeium_virtual_text.status()
             local has_codeium_completions = codeium_status.state == 'completions' and codeium_status.total > 0
 
-            if cmp:visible() then
+            -- If we have AI suggestions, prefer those since we've manually
+            -- requested them.
+            if has_codeium_completions then
+              fallback()
+            elseif cmp:visible() then
+              -- Accept auto-complete from LSP
               cmp.confirm {
                 select = true, -- Automatically select the first if one is not selected
               }
-            elseif has_codeium_completions then
-              fallback()
             else
+              -- Send regular 'Tab' key
               vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, false, true), 'nt', false)
             end
           end, { 'i', 's' }),
@@ -1151,6 +1156,7 @@ require('lazy').setup({
   require 'plugins.folding',
   require 'plugins.context',
   require 'plugins.undo-highlight',
+  require 'plugins.neotest',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
