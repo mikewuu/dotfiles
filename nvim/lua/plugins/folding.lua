@@ -15,7 +15,7 @@ return {
       {
         'zr',
         function()
-          require('ufo').openFoldsExceptKinds { 'comment', 'imports' }
+          require('ufo').openFoldsExceptKinds { 'imports' }
         end,
         desc = '󱃄 Open regular folds',
       },
@@ -53,7 +53,7 @@ return {
     opts = {
       -- when opening the buffer, close these fold kinds
       close_fold_kinds_for_ft = {
-        default = { 'imports', 'comment' },
+        default = { 'imports' },
         json = { 'array' },
         -- use `:UfoInspect` to get see available fold kinds
       },
