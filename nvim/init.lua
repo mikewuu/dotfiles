@@ -784,7 +784,7 @@ require('lazy').setup({
 
       require('typescript-tools').setup {
         settings = {
-          tsserver_path = '/opt/homebrew/lib/node_modules/typescript/bin/tsserver',
+          tsserver_max_memory = 8192,
         },
       }
     end,
