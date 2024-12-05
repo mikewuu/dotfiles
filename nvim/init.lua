@@ -533,6 +533,12 @@ require('lazy').setup({
       },
     },
   },
+  -- Faster typescript LSP implementing native lua because ts_ls is too slow
+  {
+    'pmizio/typescript-tools.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+    opts = {},
+  },
   { 'Bilal2453/luvit-meta', lazy = true },
   {
     -- Main LSP Configuration
@@ -714,48 +720,6 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
-        vtsls = {
-          filetypes = {
-            'javascript',
-            'javascriptreact',
-            'javascript.jsx',
-            'typescript',
-            'typescriptreact',
-            'typescript.tsx',
-          },
-          settings = {
-            complete_function_calls = true,
-            vtsls = {
-              autoUseWorkspaceTsdk = true,
-              experimental = {
-                completion = {
-                  enableServerSideFuzzyMatch = true,
-                },
-              },
-            },
-            typescript = {
-              updateImportsOnFileMove = { enabled = 'always' },
-              suggest = {
-                completeFunctionCalls = true,
-              },
-              tsserver = {
-                maxTsServerMemory = 8192,
-              },
-              preferences = {
-                importModuleSpecifier = 'non-relative',
-              },
-              inlayHints = {
-                enumMemberValues = { enabled = true },
-                functionLikeReturnTypes = { enabled = true },
-                parameterNames = { enabled = 'literals' },
-                parameterTypes = { enabled = true },
-                propertyDeclarationTypes = { enabled = true },
-                variableTypes = { enabled = false },
-              },
-            },
-          },
-        },
-        --
 
         lua_ls = {
           -- cmd = {...},
@@ -815,6 +779,12 @@ require('lazy').setup({
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
           end,
+        },
+      }
+
+      require('typescript-tools').setup {
+        settings = {
+          tsserver_path = '/opt/homebrew/lib/node_modules/typescript/bin/tsserver',
         },
       }
     end,
