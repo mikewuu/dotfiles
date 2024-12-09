@@ -5,6 +5,7 @@ return {
     'nvim-neotest/nvim-nio',
     'olimorris/neotest-phpunit',
     'nvim-neotest/neotest-jest',
+    'nvim-neotest/neotest-plenary',
   },
   config = function()
     require('neotest').setup {
@@ -16,6 +17,7 @@ return {
             return vim.fn.getcwd()
           end,
         },
+        require 'neotest-plenary',
       },
     }
   end,

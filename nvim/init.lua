@@ -1,5 +1,4 @@
 --[[
-
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
@@ -226,6 +225,10 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   end
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
+
+require 'core.functions'
+require 'core.keymaps'
+require 'core.opts'
 
 -- [[ Configure and install plugins ]]
 --
@@ -785,6 +788,9 @@ require('lazy').setup({
       require('typescript-tools').setup {
         settings = {
           tsserver_max_memory = 8192,
+          tsserver_file_preferences = {
+            importModuleSpecifierPreference = 'non-relative',
+          },
         },
       }
     end,
@@ -1099,7 +1105,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'php' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'php', 'dockerfile' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -1148,6 +1154,7 @@ require('lazy').setup({
   require 'plugins.context',
   require 'plugins.undo-highlight',
   require 'plugins.neotest',
+  require 'plugins.ts-comments',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
