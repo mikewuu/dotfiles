@@ -769,6 +769,7 @@ require('lazy').setup({
         'tflint',
         'vale',
         'php-cs-fixer',
+        'blade-formatter',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -838,6 +839,7 @@ require('lazy').setup({
         typescript = { 'prettierd', 'prettier', stop_after_first = true },
         typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
         php = { 'php_cs_fixer', stop_after_first = true },
+        blade = { 'blade-formatter' },
       },
     },
   },
@@ -1115,7 +1117,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.lsp-file-operations',
-  { import = 'plugins'  },
+  { import = 'plugins' },
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
