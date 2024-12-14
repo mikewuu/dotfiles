@@ -559,6 +559,9 @@ require('lazy').setup({
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
     },
+    opts = {
+      inlay_hints = { enabled = false },
+    },
     config = function()
       -- Brief aside: **What is LSP?**
       --
@@ -666,16 +669,6 @@ require('lazy').setup({
                 vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
               end,
             })
-          end
-
-          -- The following code creates a keymap to toggle inlay hints in your
-          -- code, if the language server you are using supports them
-          --
-          -- This may be unwanted, since they displace some of your code
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-            map('<leader>th', function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-            end, '[T]oggle Inlay [H]ints')
           end
         end,
       })
@@ -788,9 +781,25 @@ require('lazy').setup({
 
       require('typescript-tools').setup {
         settings = {
-          tsserver_max_memory = 8192,
+          code_lens = 'off',
+          complete_function_calls = true,
+          include_completions_with_insert_text = true,
+          separate_diagnostic_server = true,
+          publish_diagnostic_on = 'insert_leave',
+          tsserver_path = nil,
+          tsserver_max_memory = 20000,
+          tsserver_format_options = {},
           tsserver_file_preferences = {
+            completions = { completeFunctionCalls = true },
+            init_options = { preferences = { disableSuggestions = true } },
             importModuleSpecifierPreference = 'non-relative',
+            jsxAttributeCompletionStyle = 'braces',
+          },
+          tsserver_locale = 'en',
+          disable_member_code_lens = true,
+          jsx_close_tag = {
+            enable = true,
+            filetypes = { 'javascriptreact', 'typescriptreact' },
           },
         },
       }
