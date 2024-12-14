@@ -850,6 +850,14 @@ require('lazy').setup({
         php = { 'php_cs_fixer', stop_after_first = true },
         blade = { 'blade-formatter' },
       },
+      formatters = {
+        prettierd = {
+          require_cwd = true,
+        },
+        prettier = {
+          require_cwd = true,
+        },
+      },
     },
   },
 
