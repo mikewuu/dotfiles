@@ -168,8 +168,9 @@ esac
 # pnpm end
 
 # history setup
-SAVEHIST=1000
-HISTSIZE=999
+HISTFILE=~/.zsh_history
+HISTSIZE=999999999
+SAVEHIST=$HISTSIZE
 setopt share_history
 setopt hist_expire_dups_first
 setopt hist_ignore_dups
