@@ -167,17 +167,9 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-# history setup
-HISTFILE=~/.zsh_history
-HISTSIZE=999999999
-SAVEHIST=$HISTSIZE
-setopt share_history
-setopt hist_expire_dups_first
-setopt hist_ignore_dups
-setopt hist_verify
 # completion using arrow keys (based on history)
 bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/dotfiles/.env
+source ~/dotfiles/.env || true
