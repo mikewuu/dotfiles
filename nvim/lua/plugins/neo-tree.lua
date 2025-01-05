@@ -16,16 +16,12 @@ return {
   opts = {
     filesystem = {
       filtered_items = {
-        visible = false,
-        hide_dotfiles = false,
-        hide_gitignored = true,
-        hide_by_name = {
-          'node_modules',
-          'vendor',
-          '.git',
-        },
+        visible = true,
         never_show = {
           '.DS_Store',
+          '.git',
+          '.changeset',
+          '.vscode',
         },
         always_show = {
           '.gitignore',
