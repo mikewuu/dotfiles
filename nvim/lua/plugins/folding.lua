@@ -53,7 +53,7 @@ return {
     opts = {
       -- when opening the buffer, close these fold kinds
       close_fold_kinds_for_ft = {
-        default = { 'imports' },
+        default = {},
         json = { 'array' },
         -- use `:UfoInspect` to get see available fold kinds
       },
