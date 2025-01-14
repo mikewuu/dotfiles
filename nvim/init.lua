@@ -1056,7 +1056,7 @@ require('lazy').setup({
         enable_cmp_source = false,
         virtual_text = {
           enabled = true,
-          manual = true,
+          manual = false,
           key_bindings = {
             -- Accept the current completion.
             accept = '<tab>',
