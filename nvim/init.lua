@@ -792,6 +792,7 @@ require('lazy').setup({
           tsserver_file_preferences = {
             completions = { completeFunctionCalls = true },
             init_options = { preferences = { disableSuggestions = true } },
+            importModuleSpecifier = 'non-relative',
             importModuleSpecifierPreference = 'non-relative',
             jsxAttributeCompletionStyle = 'braces',
           },
