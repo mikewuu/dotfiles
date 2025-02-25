@@ -706,7 +706,7 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        -- gopls = {},
+        gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -763,6 +763,9 @@ require('lazy').setup({
         'vale',
         'php-cs-fixer',
         'blade-formatter',
+        'gopls',
+        'golangci-lint',
+        'goimports',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -850,6 +853,7 @@ require('lazy').setup({
         typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
         php = { 'php_cs_fixer', stop_after_first = true },
         blade = { 'blade-formatter' },
+        go = { 'gofmt', 'goimports' },
       },
       formatters = {
         prettierd = {
