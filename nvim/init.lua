@@ -1066,15 +1066,15 @@ require('lazy').setup({
             -- Accept the current completion.
             accept = '<tab>',
             -- Accept the next word.
-            accept_word = false,
+            accept_word = '<right>',
             -- Accept the next line.
             accept_line = false,
             -- Clear the virtual text.
             clear = false,
             -- Cycle to the next completion.
-            next = '<C-n>',
+            next = '<M-n>',
             -- Cycle to the previous completion.
-            prev = '<C-p>',
+            prev = '<M-p>',
           },
         },
       }
