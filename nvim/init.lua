@@ -1066,7 +1066,7 @@ require('lazy').setup({
             -- Accept the current completion.
             accept = '<tab>',
             -- Accept the next word.
-            accept_word = '<right>',
+            accept_word = false,
             -- Accept the next line.
             accept_line = false,
             -- Clear the virtual text.
