@@ -766,6 +766,7 @@ require('lazy').setup({
         'gopls',
         'golangci-lint',
         'goimports',
+        'swiftlint',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -854,6 +855,7 @@ require('lazy').setup({
         php = { 'php_cs_fixer', stop_after_first = true },
         blade = { 'blade-formatter' },
         go = { 'gofmt', 'goimports' },
+        swift = { 'swiftformat' },
       },
       formatters = {
         prettierd = {

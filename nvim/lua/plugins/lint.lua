@@ -13,6 +13,7 @@ return {
       linters_by_ft['markdown'] = nil
       linters_by_ft['terraform'] = { 'tflint' }
       linters_by_ft['go'] = { 'golangcilint' }
+      linters_by_ft['swift'] = { 'swiftlint' }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
       -- instead set linters_by_ft like this:
