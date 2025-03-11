@@ -5,15 +5,27 @@ return {
     'MunifTanjim/nui.nvim',
   },
   config = function()
+    local xcodebuild_dap = require 'xcodebuild.integrations.dap'
+    -- SAMPLE PATH, change it to your local codelldb path
+    local codelldbPath = os.getenv 'HOME' .. '/Code/codelldb-darwin-arm64/extension/adapter/codelldb'
+
+    xcodebuild_dap.setup(codelldbPath)
+
     require('xcodebuild').setup {
       code_coverage = {
         enabled = true,
+      },
+      integrations = {
+        pymobiledevice = {
+          enabled = true,
+        },
       },
     }
 
     vim.keymap.set('n', '<leader>xl', '<cmd>XcodebuildToggleLogs<cr>', { desc = 'Toggle Xcodebuild Logs' })
     vim.keymap.set('n', '<leader>xb', '<cmd>XcodebuildBuild<cr>', { desc = 'Build Project' })
     vim.keymap.set('n', '<leader>xr', '<cmd>XcodebuildBuildRun<cr>', { desc = 'Build & Run Project' })
+    vim.keymap.set('n', '<leader>xu', xcodebuild_dap.build_and_debug, { desc = 'Build & Debug' })
     vim.keymap.set('n', '<leader>xt', '<cmd>XcodebuildTest<cr>', { desc = 'Run Tests' })
     vim.keymap.set('n', '<leader>xT', '<cmd>XcodebuildTestClass<cr>', { desc = 'Run This Test Class' })
     vim.keymap.set('n', '<leader>X', '<cmd>XcodebuildPicker<cr>', { desc = 'Show All Xcodebuild Actions' })
