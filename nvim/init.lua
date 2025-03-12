@@ -942,13 +942,12 @@ require('lazy').setup({
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet
           ['<Tab>'] = cmp.mapping(function(fallback)
-            local codeium_virtual_text = require 'codeium.virtual_text'
-            local codeium_status = codeium_virtual_text.status()
-            local has_codeium_completions = codeium_status.state == 'completions' and codeium_status.total > 0
+            local copilot_suggestions = require 'copilot.suggestion'
+            local has_copilot_suggestions = copilot_suggestions.is_visible()
 
             -- If we have AI suggestions, prefer those since we've manually
             -- requested them.
-            if has_codeium_completions then
+            if has_copilot_suggestions then
               fallback()
             elseif cmp:visible() then
               -- Accept auto-complete from LSP
@@ -1048,43 +1047,6 @@ require('lazy').setup({
     'karb94/neoscroll.nvim',
     config = function()
       require('neoscroll').setup {}
-    end,
-  },
-
-  -- Codeium AI auto-complete
-  {
-    'Exafunction/codeium.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'hrsh7th/nvim-cmp',
-    },
-    config = function()
-      require('codeium').setup {
-        enable_cmp_source = false,
-        virtual_text = {
-          enabled = true,
-          manual = false,
-          key_bindings = {
-            -- Accept the current completion.
-            accept = '<tab>',
-            -- Accept the next word.
-            accept_word = false,
-            -- Accept the next line.
-            accept_line = false,
-            -- Clear the virtual text.
-            clear = false,
-            -- Cycle to the next completion.
-            next = '<M-n>',
-            -- Cycle to the previous completion.
-            prev = '<M-p>',
-          },
-        },
-      }
-
-      -- Show codeium suggestions on CTRL+a
-      vim.keymap.set('i', '<C-a>', function()
-        require('codeium.virtual_text').complete()
-      end)
     end,
   },
 
