@@ -1,5 +1,5 @@
 return {
-  dir = '/Users/mike/Code/copilot.lua',
+  'zbirenbaum/copilot.lua',
   cmd = 'Copilot',
   config = function()
     require('copilot').setup {
