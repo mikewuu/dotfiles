@@ -177,3 +177,4 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 set -a # automatically source all env
 source ~/dotfiles/.env || true
 set +a # disable source all
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
