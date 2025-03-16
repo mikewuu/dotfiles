@@ -19,6 +19,9 @@ return {
         pymobiledevice = {
           enabled = true,
         },
+        neo_tree = {
+          enabled = true, -- enable updating Xcode project files when using neo-tree.nvim
+        },
       },
     }
 
