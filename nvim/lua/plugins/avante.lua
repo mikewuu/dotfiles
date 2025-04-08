@@ -12,6 +12,15 @@ return {
       max_tokens = 20480,
       disable_tools = true, -- disable tools!,
     },
+    -- Override img-clip settings so that it returns the file path
+    -- as is instead of url encoding it.
+    img_paste = {
+      url_encode_path = false,
+      template = function(context)
+        local fixed_path = context.file_path:gsub('/ ', ' ') -- undo escaping spaces
+        return string.format('\nimage: "%s"\n', fixed_path)
+      end,
+    },
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
   build = 'make',
@@ -34,12 +43,11 @@ return {
       opts = {
         -- recommended settings
         default = {
-          embed_image_as_base64 = true,
+          embed_image_as_base64 = false,
           prompt_for_file_name = false,
           drag_and_drop = {
             insert_mode = true,
           },
-          -- required for Windows users
           use_absolute_path = false,
         },
       },
