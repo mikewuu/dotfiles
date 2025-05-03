@@ -4,6 +4,7 @@ return {
   version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
   opts = {
     provider = 'claude',
+    mode = 'legacy', -- use legacy mode instead of agentic (default) which calls tools
     claude = {
       endpoint = 'https://api.anthropic.com',
       model = 'claude-3-7-sonnet-20250219',
