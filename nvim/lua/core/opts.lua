@@ -22,3 +22,6 @@ vim.filetype.add {
     ['.*%.blade%.php'] = 'blade',
   },
 }
+
+--- Disable characters like eol:↴,tab:»
+vim.opt.list = false
