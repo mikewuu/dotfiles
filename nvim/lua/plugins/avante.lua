@@ -5,13 +5,17 @@ return {
   opts = {
     provider = 'claude',
     mode = 'legacy', -- use legacy mode instead of agentic (default) which calls tools
-    claude = {
-      endpoint = 'https://api.anthropic.com',
-      model = 'claude-3-7-sonnet-20250219',
-      timeout = 30000, -- Timeout in milliseconds
-      temperature = 0,
-      max_tokens = 20480,
-      disable_tools = true, -- disable tools!,
+    providers = {
+      claude = {
+        endpoint = 'https://api.anthropic.com',
+        model = 'claude-3-7-sonnet-20250219',
+        timeout = 30000, -- Timeout in milliseconds
+        disable_tools = true, -- disable tools!,
+        extra_request_body = {
+          max_tokens = 20480,
+          temperature = 0,
+        },
+      },
     },
     -- Override img-clip settings so that it returns the file path
     -- as is instead of url encoding it.
