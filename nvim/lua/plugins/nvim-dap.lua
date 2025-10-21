@@ -42,7 +42,14 @@ return {
         desc = 'Debug: Set Breakpoint',
       },
       -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-      { '<leader>dd', dapui.toggle, desc = 'Debug: See last session result.' },
+      { '<leader>dd', function()
+        dapui.toggle({ layout = 2, reset = true })
+        dapui.toggle({ layout = 3, reset = true })
+      end, desc = 'Debug: See last session result.' },
+      -- Toggle console-only layout
+      { '<leader>xy', function()
+        dapui.toggle({ layout = 1, reset = true })
+      end, desc = 'Debug: Toggle console only' },
       unpack(keys),
     }
   end,
@@ -85,6 +92,33 @@ return {
           run_last = '▶▶',
           terminate = '⏹',
           disconnect = '⏏',
+        },
+      },
+      layouts = {
+        {
+          elements = {
+            { id = "console", size = 1.0 },
+          },
+          size = 0.33,
+          position = "bottom",
+        },
+        {
+          elements = {
+            { id = "scopes", size = 0.25 },
+            { id = "breakpoints", size = 0.25 },
+            { id = "stacks", size = 0.25 },
+            { id = "watches", size = 0.25 },
+          },
+          size = 40,
+          position = "left",
+        },
+        {
+          elements = {
+            "repl",
+            "console",
+          },
+          size = 0.25,
+          position = "bottom",
         },
       },
     }
