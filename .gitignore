@@ -12,3 +12,4 @@ nvim/spell/
 nvim/lazy-lock.json
 
 .claude
+.nvim
