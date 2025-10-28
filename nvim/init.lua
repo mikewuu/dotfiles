@@ -735,7 +735,7 @@ require('lazy').setup({
         },
       }
 
-      require('lspconfig')['sourcekit'].setup {
+      vim.lsp.config('sourcekit', {
         capabilities = {
           workspace = {
             didChangeWatchedFiles = {
@@ -743,7 +743,9 @@ require('lazy').setup({
             },
           },
         },
-      }
+      })
+
+      vim.lsp.enable { 'sourcekit' }
 
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
@@ -780,7 +782,8 @@ require('lazy').setup({
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+            vim.lsp.config(server_name, server)
+            vim.lsp.enable(server_name)
           end,
         },
       }
