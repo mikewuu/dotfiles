@@ -6,10 +6,8 @@ return {
   },
   config = function()
     local xcodebuild_dap = require 'xcodebuild.integrations.dap'
-    -- SAMPLE PATH, change it to your local codelldb path
-    local codelldbPath = os.getenv 'HOME' .. '/Code/codelldb-darwin-arm64/extension/adapter/codelldb'
-
-    xcodebuild_dap.setup(codelldbPath)
+    
+    xcodebuild_dap.setup()
 
     require('xcodebuild').setup {
       code_coverage = {
