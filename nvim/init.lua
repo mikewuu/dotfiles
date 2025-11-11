@@ -200,6 +200,100 @@ vim.keymap.set('v', '<leader>y', '"+y', { noremap = true, silent = true, desc = 
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true, silent = true, desc = 'Move line down' })
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { noremap = true, silent = true, desc = 'Move line up' })
 
+-- Window resizing - tmux-style sticky mode
+local function enter_resize_mode()
+  local resize_mode_active = true
+
+  -- Create temporary keymaps for resize mode
+  local resize_maps = {
+    {
+      'h',
+      function()
+        vim.cmd 'vertical resize +3'
+      end,
+      'Increase width',
+    },
+    {
+      'j',
+      function()
+        vim.cmd 'resize -3'
+      end,
+      'Decrease height',
+    },
+    {
+      'k',
+      function()
+        vim.cmd 'resize +3'
+      end,
+      'Increase height',
+    },
+    {
+      'l',
+      function()
+        vim.cmd 'vertical resize -3'
+      end,
+      'Decrease width',
+    },
+    {
+      '>',
+      function()
+        vim.cmd 'wincmd L'
+      end,
+      'Move window to right (vertical split)',
+    },
+    {
+      '<',
+      function()
+        vim.cmd 'wincmd H'
+      end,
+      'Move window to left (vertical split)',
+    },
+    {
+      'q',
+      function()
+        resize_mode_active = false
+      end,
+      'Exit resize mode',
+    },
+    {
+      '<Esc>',
+      function()
+        resize_mode_active = false
+      end,
+      'Exit resize mode',
+    },
+    {
+      '<CR>',
+      function()
+        resize_mode_active = false
+      end,
+      'Exit resize mode',
+    },
+  }
+
+  -- Set up temporary keymaps
+  local buf_maps = {}
+  for _, map in ipairs(resize_maps) do
+    local key, func, desc = map[1], map[2], map[3]
+    vim.keymap.set('n', key, function()
+      func()
+      if not resize_mode_active then
+        -- Clean up temporary keymaps
+        for _, buf_map in ipairs(buf_maps) do
+          vim.keymap.del('n', buf_map)
+        end
+        print 'Exited resize mode'
+      end
+    end, { noremap = true, silent = true, desc = desc })
+    table.insert(buf_maps, key)
+  end
+
+  print 'Resize mode: hjkl to resize, q/Esc/Enter to exit'
+end
+
+-- Enter resize mode with Ctrl+w
+vim.keymap.set('n', '<C-w><C-w>', enter_resize_mode, { noremap = true, silent = true, desc = 'Enter resize mode' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
