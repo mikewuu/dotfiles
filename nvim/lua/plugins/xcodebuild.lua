@@ -38,5 +38,6 @@ return {
     vim.keymap.set('n', '<leader>xN', '<cmd>XcodebuildAddCurrentFile<cr>', { desc = 'Add the current file to project target' })
     vim.keymap.set('n', '<leader>xg', '<cmd>XcodebuildCreateNewGroup<cr>', { desc = 'Create a new folder (group) to the project target' })
     vim.keymap.set('n', '<leader>xG', '<cmd>XcodebuildAddCurrentGroup<cr>', { desc = 'Add the current folder (group) to the project target' })
+    vim.keymap.set('n', '<leader>xs', '<cmd>XcodebuildSelectScheme<cr>', { desc = 'Select a scheme to build for' })
   end,
 }
