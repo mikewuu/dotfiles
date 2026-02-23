@@ -1,0 +1,36 @@
+palette = 0=#51576d
+palette = 1=#e78284
+palette = 2=#a6d189
+palette = 3=#e5c890
+palette = 4=#8caaee
+palette = 5=#f4b8e4
+palette = 6=#81c8be
+palette = 7=#a5adce
+palette = 8=#626880
+palette = 9=#e78284
+palette = 10=#a6d189
+palette = 11=#e5c890
+palette = 12=#8caaee
+palette = 13=#f4b8e4
+palette = 14=#81c8be
+palette = 15=#b5bfe2
+background = 303446
+foreground = c6d0f5
+cursor-color = f2d5cf
+cursor-text = 232634
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
+selection-background = 44495d
+selection-foreground = c6d0f5
+font-family = MesloLGS Nerd Font Mono
+font-size = 14
+
+macos-titlebar-style=hidden
+
+window-padding-x = 12
+window-padding-y = 8
+
+# Pass Alt+Arrow through to tmux for window switching
+keybind = alt+left=unbind
+keybind = alt+right=unbind
