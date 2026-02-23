@@ -178,3 +178,4 @@ set -a # automatically source all env
 source ~/dotfiles/.env || true
 set +a # disable source all
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="/opt/homebrew/opt/node@24/bin:$PATH"
