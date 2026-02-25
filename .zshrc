@@ -178,3 +178,6 @@ set -a # automatically source all env
 source ~/dotfiles/.env || true
 set +a # disable source all
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+
+# opencode
+export PATH=/Users/mike/.opencode/bin:$PATH
