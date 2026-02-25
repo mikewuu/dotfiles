@@ -563,6 +563,8 @@ require('lazy').setup({
             '%.git/',
             'vendor',
             '%.next',
+            'build/',
+            'dist/',
           },
         },
         pickers = {
