@@ -181,3 +181,4 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
 # opencode
 export PATH=/Users/mike/.opencode/bin:$PATH
+export PATH="$HOME/.config/composer/vendor/bin:$PATH"
