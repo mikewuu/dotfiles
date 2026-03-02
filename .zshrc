@@ -182,3 +182,62 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 # opencode
 export PATH=/Users/mike/.opencode/bin:$PATH
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+
+# Git Worktree helpers
+# gwa: add worktree — creates a new branch and worktree in .worktrees/<branch>, then cd's into it
+gwa () {
+  if [ -z "$1" ]; then
+    echo "Usage: gwa <branch> [base]"
+    return 1
+  fi
+
+  branch=$1
+  base=${2:-$(git branch --show-current)}
+  dir=".worktrees/$branch"
+
+  mkdir -p .worktrees
+
+  echo "Creating worktree '$branch' from '$base'..."
+  git worktree add -b "$branch" "$dir" "$base" &&
+  cd "$dir"
+}
+
+# gwd: delete worktree — removes the worktree and its branch
+gwd () {
+  if [ -z "$1" ]; then
+    echo "Usage: gwd <branch>"
+    return 1
+  fi
+
+  branch=$1
+  dir=".worktrees/$branch"
+
+  echo "Removing worktree '$branch'..."
+
+  git worktree remove "$dir" &&
+  git branch -d "$branch"
+}
+
+# gwm: merge worktree — merges the branch into current branch, then removes the worktree and branch
+gwm () {
+  if [ -z "$1" ]; then
+    echo "Usage: gwm <branch>"
+    return 1
+  fi
+
+  branch=$1
+  dir=".worktrees/$branch"
+  target=$(git branch --show-current)
+
+  echo "Merging '$branch' into '$target'..."
+
+  git merge --no-ff "$branch" || return 1
+
+  echo "Removing worktree..."
+  git worktree remove "$dir"
+
+  echo "Deleting branch..."
+  git branch -d "$branch"
+
+  echo "✅ Merged and cleaned up '$branch'"
+}
