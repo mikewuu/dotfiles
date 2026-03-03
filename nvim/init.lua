@@ -816,6 +816,19 @@ require('lazy').setup({
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
 
+        intelephense = {
+          init_options = {
+            licenceKey = os.getenv("INTELEPHENSE_LICENSE"),
+          },
+          settings = {
+            intelephense = {
+              telemetry = {
+                enabled = false,
+              },
+            },
+          },
+        },
+
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
