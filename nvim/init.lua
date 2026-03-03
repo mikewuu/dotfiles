@@ -640,7 +640,6 @@ require('lazy').setup({
   {
     'pmizio/typescript-tools.nvim',
     dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-    opts = {},
   },
   { 'Bilal2453/luvit-meta', lazy = true },
   {
