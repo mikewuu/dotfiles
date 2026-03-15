@@ -561,17 +561,13 @@ require('lazy').setup({
         defaults = {
           file_ignore_patterns = {
             'node_modules',
-            '%.git/',
+            '.git',
             'vendor',
-            '%.next',
-            'build/',
-            'dist/',
           },
         },
         pickers = {
           find_files = {
             hidden = true, -- Show hidden (dot) files
-            no_ignore = true, -- Show gitignored files (eg .env.local)
           },
         },
         extensions = {
