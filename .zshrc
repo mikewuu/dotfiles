@@ -219,19 +219,34 @@ gwd () {
 }
 
 # gwm: merge worktree — merges the branch into current branch, then removes the worktree and branch
+# Usage: gwm <branch> [--squash]
 gwm () {
-  if [ -z "$1" ]; then
-    echo "Usage: gwm <branch>"
+  local squash=false
+  local branch=""
+
+  for arg in "$@"; do
+    case "$arg" in
+      --squash) squash=true ;;
+      *) branch="$arg" ;;
+    esac
+  done
+
+  if [ -z "$branch" ]; then
+    echo "Usage: gwm <branch> [--squash]"
     return 1
   fi
 
-  branch=$1
-  dir=".worktrees/$branch"
-  target=$(git branch --show-current)
+  local dir=".worktrees/$branch"
+  local target=$(git branch --show-current)
 
-  echo "Merging '$branch' into '$target'..."
-
-  git merge --no-ff "$branch" || return 1
+  if $squash; then
+    echo "Squash-merging '$branch' into '$target'..."
+    git merge --squash "$branch" || return 1
+    git commit || return 1
+  else
+    echo "Merging '$branch' into '$target'..."
+    git merge --no-ff "$branch" || return 1
+  fi
 
   echo "Removing worktree..."
   git worktree remove "$dir"
