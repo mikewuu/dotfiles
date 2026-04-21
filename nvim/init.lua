@@ -902,6 +902,8 @@ require('lazy').setup({
           },
         },
 
+        terraformls = {},
+
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
