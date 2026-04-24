@@ -242,7 +242,7 @@ gwm () {
   if $squash; then
     echo "Squash-merging '$branch' into '$target'..."
     git merge --squash "$branch" || return 1
-    git commit || return 1
+    git commit -e -m "$(git log -1 --format=%B "$branch")" || return 1
   else
     echo "Merging '$branch' into '$target'..."
     git merge --no-ff "$branch" || return 1
@@ -252,7 +252,11 @@ gwm () {
   git worktree remove "$dir"
 
   echo "Deleting branch..."
-  git branch -d "$branch"
+  if $squash; then
+    git branch -D "$branch"
+  else
+    git branch -d "$branch"
+  fi
 
   echo "✅ Merged and cleaned up '$branch'"
 }
