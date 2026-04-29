@@ -218,45 +218,28 @@ gwd () {
   git branch -d "$branch"
 }
 
-# gwm: merge worktree — merges the branch into current branch, then removes the worktree and branch
-# Usage: gwm <branch> [--squash]
+# gwm: merge worktree — squash-merges the branch into current branch, then removes the worktree and branch
+# Usage: gwm <branch>
 gwm () {
-  local squash=false
-  local branch=""
-
-  for arg in "$@"; do
-    case "$arg" in
-      --squash) squash=true ;;
-      *) branch="$arg" ;;
-    esac
-  done
+  local branch="$1"
 
   if [ -z "$branch" ]; then
-    echo "Usage: gwm <branch> [--squash]"
+    echo "Usage: gwm <branch>"
     return 1
   fi
 
   local dir=".worktrees/$branch"
   local target=$(git branch --show-current)
 
-  if $squash; then
-    echo "Squash-merging '$branch' into '$target'..."
-    git merge --squash "$branch" || return 1
-    git commit -e -m "$(git log -1 --format=%B "$branch")" || return 1
-  else
-    echo "Merging '$branch' into '$target'..."
-    git merge --no-ff "$branch" || return 1
-  fi
+  echo "Squash-merging '$branch' into '$target'..."
+  git merge --squash "$branch" || return 1
+  git commit -e -m "$(git log -1 --format=%B "$branch")" || return 1
 
   echo "Removing worktree..."
   git worktree remove "$dir"
 
   echo "Deleting branch..."
-  if $squash; then
-    git branch -D "$branch"
-  else
-    git branch -d "$branch"
-  fi
+  git branch -D "$branch"
 
   echo "✅ Merged and cleaned up '$branch'"
 }
