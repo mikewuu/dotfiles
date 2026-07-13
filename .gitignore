@@ -13,3 +13,5 @@ nvim/lazy-lock.json
 
 .claude
 .nvim
+
+**/.claude/settings.local.json
