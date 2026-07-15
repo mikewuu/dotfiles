@@ -3,6 +3,7 @@
 dotfiles=$HOME/dotfiles
 
 zshrc=$dotfiles/.zshrc
+zshenv=$dotfiles/.zshenv
 aliases=$dotfiles/.aliases
 vimrc=$dotfiles/.vimrc
 vimfiles=$dotfiles/.vim
@@ -17,6 +18,8 @@ ghostty_config=$dotfiles/ghostty
 [[ ! -e $HOME/.aliases ]] && ln -s $aliases $HOME/.aliases
 
 [[ ! -e $HOME/.zshrc ]] && ln -s $zshrc $HOME/.zshrc
+
+[[ ! -e $HOME/.zshenv ]] && ln -s $zshenv $HOME/.zshenv
 
 [[ ! -e $HOME/.tmux.conf ]] && ln -s $tmux_conf $HOME/.tmux.conf
 
