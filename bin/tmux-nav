@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+# tmux-nav — browser-style back/forward across panes, windows, and sessions.
+# The pane-focus-in hook records every pane you land in; back/forward walk
+# the stack (going somewhere new after "back" discards forward history).
+set -u
+
+DIR="${TMUX_NAV_DIR:-$HOME/.cache/tmux-nav}"
+HIST="$DIR/history" # one pane id per line, oldest first
+IDXF="$DIR/index"   # 1-based line number of the current position
+FLAG="$DIR/skip"    # exists => next focus event came from back/forward, don't record it
+MAX=100
+
+mkdir -p "$DIR"
+touch "$HIST"
+
+idx() { cat "$IDXF" 2>/dev/null || echo 0; }
+count() { wc -l <"$HIST" | tr -d ' '; }
+line() { sed -n "${1}p" "$HIST"; }
+alive() { tmux has-session -t "$1" 2>/dev/null; }
+
+# Order matters: pane first (no focus event while its window is hidden), then
+# window, then session — so exactly one pane-focus-in fires, on the target.
+goto() {
+  touch "$FLAG"
+  tmux select-pane -t "$1" 2>/dev/null
+  tmux select-window -t "$1" 2>/dev/null
+  tmux switch-client -t "$1" 2>/dev/null || rm -f "$FLAG"
+}
+
+record() {
+  local loc="$1" i cur=""
+  if [ -e "$FLAG" ]; then
+    rm -f "$FLAG"
+    return 0
+  fi
+  i=$(idx)
+  [ "$i" -ge 1 ] && cur=$(line "$i")
+  [ "$cur" = "$loc" ] && return 0
+  {
+    [ "$i" -gt 0 ] && head -n "$i" "$HIST"
+    echo "$loc"
+  } | tail -n "$MAX" >"$HIST.tmp"
+  mv "$HIST.tmp" "$HIST"
+  count >"$IDXF"
+}
+
+back() {
+  local i t
+  i=$(idx)
+  while [ "$i" -gt 1 ]; do
+    i=$((i - 1))
+    t=$(line "$i")
+    if alive "$t"; then
+      echo "$i" >"$IDXF"
+      goto "$t"
+      return 0
+    fi
+  done
+  tmux display-message "nav: no older history"
+}
+
+forward() {
+  local i n t
+  i=$(idx)
+  n=$(count)
+  while [ "$i" -lt "$n" ]; do
+    i=$((i + 1))
+    t=$(line "$i")
+    if alive "$t"; then
+      echo "$i" >"$IDXF"
+      goto "$t"
+      return 0
+    fi
+  done
+  tmux display-message "nav: no newer history"
+}
+
+case "${1:-}" in
+record) record "$2" ;;
+back) back ;;
+forward) forward ;;
+clear) rm -f "$HIST" "$IDXF" "$FLAG" ;;
+*)
+  echo "usage: tmux-nav record <pane_id> | back | forward | clear" >&2
+  exit 1
+  ;;
+esac
