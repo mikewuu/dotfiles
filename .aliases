@@ -87,3 +87,9 @@ alias pg_stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql.
 
 #iCloud
 alias icloud="cd '/Users/mike/Library/Mobile Documents/com~apple~CloudDocs/iCloud (Mike)'"
+
+# Fuzzy-find a file and read it: fless <query>
+fless() {
+  local f
+  f=$(rg --files | fzf --query "${1:-}" --select-1 --exit-0) && less "$f"
+}
