@@ -5,6 +5,7 @@
 	excludesfile = /Users/mike/.gitignore
         editor = nvim
 	whitespace = cr-at-eol
+	hooksPath = /Users/mike/.githooks
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f

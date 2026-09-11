@@ -6,7 +6,7 @@ export LANG=en_US.UTF-8
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Brew paths
-export PATH="$HOME/bin:$HOME/dotfiles/bin:/usr/local/bin:$PATH:$HOME/Libary/Python/3.9/bin:$HOME/.composer/vendor/bin:/opt/homebrew/opt/openjdk/bin:$HOME/go/bin:$PATH:vendor/bin:$HOME/.local/bin"
+export PATH="$HOME/dotfiles/bin:/usr/local/bin:$PATH:$HOME/Library/Python/3.9/bin:$HOME/.local/bin"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/mike/.oh-my-zsh"
@@ -79,6 +79,10 @@ plugins=(git zsh-autosuggestions macos sudo)
 
 source $ZSH/oh-my-zsh.sh
 
+# History: lift oh-my-zsh's 10k SAVEHIST cap (must come after oh-my-zsh.sh)
+HISTSIZE=1000000
+SAVEHIST=1000000
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -112,15 +116,6 @@ obvio() {
 }
 
 
-# Android - append paths so CLI commands work
-export JAVA_HOME=/opt/homebrew/opt/openjdk@17
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
-export PATH=$ANDROID_HOME/platform-tools:$PATH
-export PATH=$ANDROID_HOME/tools:$PATH
-
-export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh" # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
@@ -145,7 +140,6 @@ load-nvmrc() {
 }
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
 export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl@1.1/lib/
   export LDFLAGS="-L/opt/homebrew/opt/openssl@1.1/lib"
